@@ -1,0 +1,43 @@
+       IDENTIFICATION DIVISION.
+       PROGRAM-ID. TABLE-EXAMPLE-2.
+       DATA DIVISION.
+       FILE SECTION.
+       WORKING-STORAGE SECTION.
+       01 TABLE-VALUES.
+           05 FILLER PIC X(10) VALUE "DAVID00152".
+           05 FILLER PIC X(10) VALUE "FANNY01110".
+           05 FILLER PIC X(10) VALUE "MALIN99921".
+           05 FILLER PIC X(10) VALUE "CISSI10099".
+           05 FILLER PIC X(10) VALUE "JONES50016".
+       01 PERSON-TABLE REDEFINES TABLE-VALUES.
+           05 PERSON-ENTRY OCCURS 5 TIMES.
+               10 PERSON-NAME PIC X(05).
+               10 PESON-BALANCE PIC 9(3)V99.
+       01 RICH-PERSON.
+           05 RICH-NAME PIC X(05).
+           05 RICH-BALANCE PIC 9(3)V99.
+
+       01 TOTAL-BALANCE PIC 9(5)V99.
+       01 TOTAL-BALANCE-R PIC ZZZZ9.99.
+       01 COUNTER PIC 9.
+       PROCEDURE DIVISION.
+       MAIN-PROCEDURE.
+
+            MOVE 1 TO COUNTER
+            PERFORM UNTIL COUNTER > 5
+               DISPLAY PERSON-NAME(COUNTER)
+               DISPLAY PESON-BALANCE(COUNTER)
+
+       *>          Here we add all balances together (ADD or COMPUTE)
+               ADD PESON-BALANCE(COUNTER) TO TOTAL-BALANCE
+       *>          Here we check if the next person is even RICH-PERSON
+               IF PESON-BALANCE(COUNTER) > RICH-BALANCE
+                   MOVE PERSON-ENTRY(COUNTER) TO RICH-PERSON
+               END-IF
+               ADD 1 TO COUNTER
+            END-PERFORM
+            DISPLAY " "
+            DISPLAY "RICHEST PERSON is "  RICH-NAME
+            DISPLAY "TOTAL AMOUNT OF MONEY: " TOTAL-BALANCE
+            STOP RUN.
+       END PROGRAM TABLE-EXAMPLE-2.

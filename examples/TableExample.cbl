@@ -3,8 +3,82 @@
        DATA DIVISION.
        FILE SECTION.
        WORKING-STORAGE SECTION.
+
+       01 NUMBER-VALUES.
+           05 FILLER PIC X(05) VALUE "ONE".
+           05 FILLER PIC X(05) VALUE "TWO".
+           05 FILLER PIC X(05) VALUE "THREE".
+           05 FILLER PIC X(05) VALUE "FOUR".
+           05 FILLER PIC X(05) VALUE "FIVE".
+
+       01 NUMBER-TABLES REDEFINES NUMBER-VALUES.
+           05 WS-NUMBER PIC X(05) OCCURS 5 TIMES.
+
+       01 TABLE-ONE.
+           05 TABLE-ELEMENT OCCURS 10 TIMES.
+               10 NUMBER-CODE  PIC 9(02) VALUE 10.
+               10 ITEM-ID      PIC X(02) VALUE "R3".
+
+       01 TABLE-TWO VALUE "DAVI".
+           05 TABLE-TWO-DATA OCCURS 4 TIMES PIC X.
+
+       01 TEXT-TABLE.
+           05 TEXT-FROM-USER PIC X(10) OCCURS 3 TIMES.
+
+       01 COUNTER PIC 99.
+       01 DYN-COUNT PIC 99.
+
        PROCEDURE DIVISION.
        MAIN-PROCEDURE.
-            DISPLAY "Hello world"
+
+       *>       One way to loop  through a table
+            PERFORM VARYING COUNTER FROM 1 BY 1 UNTIL COUNTER > 5
+               DISPLAY "First example: "
+               DISPLAY " "
+               DISPLAY WS-NUMBER(COUNTER)
+            END-PERFORM
+
+       *>       One way to get length of the table(OCCURENSES)
+            COMPUTE DYN-COUNT =
+            LENGTH OF TABLE-ONE / LENGTH OF TABLE-ELEMENT
+
+            DISPLAY "TABLE-ONE LENGTH: " LENGTH OF TABLE-ONE
+            DISPLAY "TABLE-ELEMENT LENGTH: " LENGTH OF TABLE-ELEMENT
+            DISPLAY "DYN-COUNT: " DYN-COUNT
+
+       *>       Here DYN-COUNT is used instead of 5 for the condition
+            PERFORM VARYING COUNTER FROM 1 BY 1 UNTIL
+            COUNTER > DYN-COUNT
+               DISPLAY TABLE-ELEMENT(COUNTER)
+            END-PERFORM
+
+       *>       A way to fill a table
+       INITIALIZE TABLE-ONE REPLACING NUMERIC DATA BY 3.
+       INITIALIZE TABLE-ONE REPLACING ALPHANUMERIC DATA BY "X".
+       PERFORM VARYING COUNTER FROM 1 BY 1 UNTIl COUNTER > DYN-COUNT
+           DISPLAY TABLE-ELEMENT(COUNTER)
+       END-PERFORM
+
+       COMPUTE DYN-COUNT =
+       LENGTH OF TABLE-TWO / LENGTH OF TABLE-TWO-DATA
+       PERFORM VARYING COUNTER FROM 1 BY 1 UNTIL COUNTER > DYN-COUNT
+           DISPLAY TABLE-TWO-DATA(COUNTER)
+       END-PERFORM
+
+       *>       Get data from ACCEPT to table and then print it with DISPLAY
+       MOVE 1 TO COUNTER
+       PERFORM UNTIL COUNTER > 3
+           DISPLAY "Enter a name: "
+           ACCEPT TEXT-FROM-USER(COUNTER)
+           ADD 1 TO COUNTER
+       END-PERFORM
+
+       MOVE 1 TO COUNTER
+       PERFORM UNTIL COUNTER > 3
+           DISPLAY "Position " COUNTER " in the table contains: "
+               TEXT-FROM-USER(COUNTER)
+           ADD 1 TO COUNTER
+       END-PERFORM
+
             STOP RUN.
        END PROGRAM YOUR-PROGRAM-NAME.
