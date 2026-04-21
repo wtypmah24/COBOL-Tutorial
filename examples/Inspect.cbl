@@ -1,0 +1,30 @@
+       IDENTIFICATION DIVISION.
+       PROGRAM-ID. YOUR-PROGRAM-NAME.
+       DATA DIVISION.
+       FILE SECTION.
+       WORKING-STORAGE SECTION.
+       01 WORD     PIC X(20).
+       01 COUNTER  PIC 99.
+       PROCEDURE DIVISION.
+       MAIN-PROCEDURE.
+            ACCEPT WORD
+
+            INSPECT WORD TALLYING COUNTER FOR CHARACTERS BEFORE SPACE
+
+            DISPLAY COUNTER
+
+            COMPUTE COUNTER = FUNCTION LENGTH(FUNCTION TRIM(WORD))
+            DISPLAY COUNTER
+
+            MOVE 0 TO COUNTER
+
+            INSPECT WORD TALLYING COUNTER FOR ALL 'A' 'E' 'I' 'O' 'U'
+                                                  'a' 'e' 'i' 'o' 'u'
+
+            DISPLAY COUNTER
+            INSPECT WORD CONVERTING 'ABC' TO '123'
+
+            DISPLAY WORD
+
+            STOP RUN.
+       END PROGRAM YOUR-PROGRAM-NAME.

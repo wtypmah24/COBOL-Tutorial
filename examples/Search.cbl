@@ -1,0 +1,36 @@
+       IDENTIFICATION DIVISION.
+       PROGRAM-ID. YOUR-PROGRAM-NAME.
+       DATA DIVISION.
+       FILE SECTION.
+       WORKING-STORAGE SECTION.
+       01 SEARCH-WORDS.
+           05 FILLER PIC X(05) VALUE "AAAAA".
+           05 FILLER PIC X(05) VALUE "BBBBB".
+           05 FILLER PIC X(05) VALUE "CCCCC".
+           05 FILLER PIC X(05) VALUE "FFFFF".
+           05 FILLER PIC X(05) VALUE "DDDDD".
+       01 SEARCH-SERIAL REDEFINES SEARCH-WORDS.
+           05 SEARCH-SERIAL-DATA OCCURS 5 TIMES
+               ASCENDING KEY IS SEARCH-SERIAL-DATA *> This code doesn't sort array. it's only contract
+               INDEXED BY SEARCH-INDEX PIC X(05).
+       77 SEARCH-WORD PIC X(05) VALUE "DDDDD".
+       PROCEDURE DIVISION.
+       MAIN-PROCEDURE.
+
+       *>      Search serial
+            SET SEARCH-INDEX TO 1
+            SEARCH SEARCH-SERIAL-DATA VARYING SEARCH-INDEX
+               AT END
+                   DISPLAY "Nt Found"
+               WHEN SEARCH-WORD = SEARCH-SERIAL-DATA(SEARCH-INDEX)
+                   DISPLAY "Found " SEARCH-SERIAL-DATA(SEARCH-INDEX)
+            END-SEARCH
+
+       *>      Search binary
+           SEARCH ALL SEARCH-SERIAL-DATA
+            AT END
+               DISPLAY "Not Found"
+            WHEN SEARCH-WORD = SEARCH-SERIAL-DATA(SEARCH-INDEX)
+               DISPLAY "Found " SEARCH-SERIAL-DATA(SEARCH-INDEX)
+            STOP RUN.
+       END PROGRAM YOUR-PROGRAM-NAME.
