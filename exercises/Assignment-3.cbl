@@ -18,9 +18,9 @@
 
        PROCEDURE DIVISION.
        MAIN-PROCEDURE.
-            PERFORM GET-START-CHOOSE.
-            PERFORM EVALUATE-CHOOSE.
-            PERFORM DISPLAY-FINAL-MSG.
+            PERFORM GET-START-CHOOSE
+            PERFORM EVALUATE-CHOOSE
+            PERFORM DISPLAY-FINAL-MSG
             STOP RUN.
 
        GET-START-CHOOSE.
@@ -32,8 +32,7 @@
            DISPLAY "4. Build a pyramid"
            DISPLAY "**************************"
            DISPLAY "  "
-           ACCEPT WS-MENU-NUMBER
-       .
+           ACCEPT WS-MENU-NUMBER.
 
        EVALUATE-CHOOSE.
            EVALUATE TRUE
@@ -50,15 +49,13 @@
                    DISPLAY "**************************"
                    DISPLAY "None of the numbers. Quit the program."
                    DISPLAY "**************************"
-           END-EVALUATE
-       .
+           END-EVALUATE.
 
        HANDLE-ONE.
            DISPLAY "  "
            DISPLAY "**************************"
            DISPLAY "There are no secrets"
-           DISPLAY "**************************"
-       .
+           DISPLAY "**************************".
 
        HANDLE-TWO.
            DISPLAY "  "
@@ -71,8 +68,7 @@
            DISPLAY "Give me the second number: "
            DISPLAY "**************************"
            ACCEPT SECOND-NUMBER
-           PERFORM COMPARE-NUMBERS
-       .
+           PERFORM COMPARE-NUMBERS.
 
        COMPARE-NUMBERS.
            EVALUATE TRUE
@@ -91,8 +87,7 @@
                    DISPLAY "**************************"
                    DISPLAY "They are the same size."
                    DISPLAY "**************************"
-           END-EVALUATE
-       .
+           END-EVALUATE.
 
        HANDLE-THREE.
            DISPLAY "  "
@@ -100,16 +95,14 @@
            DISPLAY "Give me a countdown start number"
            DISPLAY "**************************"
            ACCEPT WS-COUNTDOWN-NUMBER
-           PERFORM COUNT-DOWN
-       .
+           PERFORM COUNT-DOWN.
 
        COUNT-DOWN.
            MOVE WS-COUNTDOWN-NUMBER TO WS-COUNTER
            PERFORM UNTIL WS-COUNTER LESS THAN 1
                DISPLAY WS-COUNTER
                SUBTRACT 1 FROM WS-COUNTER GIVING WS-COUNTER
-           END-PERFORM
-       .
+           END-PERFORM.
 
        HANDLE-FOUR.
            DISPLAY "  "
@@ -117,8 +110,7 @@
            DISPLAY "Give me pyramid height"
            DISPLAY "**************************"
            ACCEPT HEIGHT
-           PERFORM BUILD-PYRAMID
-       .
+           PERFORM BUILD-PYRAMID.
 
        BUILD-PYRAMID.
            PERFORM VARYING ROW FROM 1 BY 1 UNTIL ROW > HEIGHT
@@ -135,13 +127,11 @@
                    DISPLAY "*" WITH NO ADVANCING
                END-PERFORM
                DISPLAY " "
-           END-PERFORM
-       .
+           END-PERFORM.
 
        DISPLAY-FINAL-MSG.
            DISPLAY "  "
            DISPLAY "**************************"
            DISPLAY "* Thank you and bye bye! *"
-           DISPLAY "**************************"
-       .
+           DISPLAY "**************************".
        END PROGRAM Assignment-3.

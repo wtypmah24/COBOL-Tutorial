@@ -1,0 +1,35 @@
+       IDENTIFICATION DIVISION.
+       PROGRAM-ID. YOUR-PROGRAM-NAME.
+       DATA DIVISION.
+       FILE SECTION.
+       WORKING-STORAGE SECTION.
+       01 WS-TIME PIC X(6).
+       01 WS-DATE PIC 9(8).
+       01 WS-DAY PIC 9.
+       01 WS-ARG PIC X(50).
+       01 WS-HOME PIC X(100).
+       01 WS-SYS PIC X(30).
+       PROCEDURE DIVISION.
+       MAIN-PROCEDURE.
+
+            ACCEPT WS-DATE FROM DATE
+            DISPLAY WS-DATE.
+
+            ACCEPT WS-TIME FROM TIME
+            DISPLAY WS-TIME.
+
+            ACCEPT WS-DAY FROM DAY-OF-WEEK
+            DISPLAY WS-DAY.
+
+            ACCEPT WS-ARG FROM ARGUMENT-VALUE
+            DISPLAY WS-ARG
+
+            ACCEPT WS-HOME FROM ENVIRONMENT "HOME"
+            DISPLAY WS-HOME.
+
+      *>       For IBM
+      *>       ACCEPT WS-SYS FROM SYSTEM-INFO
+      *>       DISPLAY WS-SYS.
+
+            STOP RUN.
+       END PROGRAM YOUR-PROGRAM-NAME.

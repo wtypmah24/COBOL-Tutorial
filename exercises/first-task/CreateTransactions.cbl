@@ -1,0 +1,45 @@
+       IDENTIFICATION DIVISION.
+       PROGRAM-ID. YOUR-PROGRAM-NAME.
+       ENVIRONMENT DIVISION.
+       INPUT-OUTPUT SECTION.
+       FILE-CONTROL.
+           SELECT TRN-FILE ASSIGN TO "../TRANSACTIONS"
+               ORGANIZATION IS INDEXED
+               ACCESS MODE IS DYNAMIC
+               RECORD KEY IS TRN-PRIMARY-KEY
+               ALTERNATE RECORD KEY IS TRN-ACC-ID WITH DUPLICATES.
+       DATA DIVISION.
+       FILE SECTION.
+       FD TRN-FILE.
+       01 TRN-REC.
+           05 TRN-PRIMARY-KEY.
+               10 TRN-ACC-ID   PIC X(10).
+               10 TRN-ID       PIC X(10).
+           05 TRN-TYPE         PIC X(10).
+           05 TRN-AMOUNT       PIC 9(9)V99.
+       WORKING-STORAGE SECTION.
+       PROCEDURE DIVISION.
+       MAIN-PROCEDURE.
+           OPEN OUTPUT TRN-FILE
+
+           MOVE "0000000001" TO TRN-ACC-ID
+           MOVE "0000000001" TO TRN-ID
+           MOVE "DEPOSIT"    TO TRN-TYPE
+           MOVE 5000         TO TRN-AMOUNT
+           WRITE TRN-REC
+
+           MOVE "0000000002" TO TRN-ACC-ID
+           MOVE "0000000002" TO TRN-ID
+           MOVE "WITHDRAW"   TO TRN-TYPE
+           MOVE 2000         TO TRN-AMOUNT
+           WRITE TRN-REC
+
+           MOVE "0000000001" TO TRN-ACC-ID
+           MOVE "0000000003" TO TRN-ID
+           MOVE "DEPOSIT"    TO TRN-TYPE
+           MOVE 10000        TO TRN-AMOUNT
+           WRITE TRN-REC
+
+           CLOSE TRN-FILE
+           STOP RUN.
+       END PROGRAM YOUR-PROGRAM-NAME.

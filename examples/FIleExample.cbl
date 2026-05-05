@@ -1,0 +1,27 @@
+       IDENTIFICATION DIVISION.
+       PROGRAM-ID. FILE-EXAMPLE.
+       ENVIRONMENT DIVISION.
+       INPUT-OUTPUT SECTION.
+       FILE-CONTROL.
+           SELECT INPUT-FILE ASSIGN TO "../data-1.txt"
+               ORGANIZATION IS LINE SEQUENTIAL. *> To read line by line
+       DATA DIVISION.
+       FILE SECTION.
+       FD INPUT-FILE.
+       01 INPUT-RECORD PIC X(5).
+       WORKING-STORAGE SECTION.
+       01 EOF-FLAG PIC X VALUE 'N'.
+
+       PROCEDURE DIVISION.
+       MAIN-PROCEDURE.
+            OPEN INPUT INPUT-FILE
+            PERFORM UNTIL EOF-FLAG EQUALS 'Y'
+               READ INPUT-FILE
+                   AT END MOVE 'Y' TO EOF-FLAG
+                   NOT AT END DISPLAY "RECORD: " INPUT-RECORD
+               END-READ
+            END-PERFORM
+
+            CLOSE INPUT-FILE
+            STOP RUN.
+       END PROGRAM FILE-EXAMPLE.
